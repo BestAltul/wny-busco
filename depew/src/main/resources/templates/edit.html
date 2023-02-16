@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Edit bus</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/buses/{id}(id = ${bigBus.getId()})}" th:object="${bigBus}">
+	
+	<label for="number">Enter number: </label>
+	<input type="text" th:field="*{number}" id ="number"/>
+	
+	<label for="fleet">Select fleet: </label>
+	<select class="Fleet" th:field="*{id}"  id ="fleet">
+		<option th:each="fleet:${fleet}" th:value="${fleet.getId()}" th:text="${fleet.getName()}"></option>
+	</select>
+	
+	<label for="dashCam">Select dashcam: </label>
+	<select th:field="*{id}"  id ="dashCam">
+		<option th:each="dashCam:${dashCameras}" th:value="${dashCam.getId()}" th:text="${dashCam.getDrid()}"></option>
+	</select>
+	
+	
+	
+	<br/>
+	<input type ="submit" value="Udpate"/>
+	
+	
+</form>
+
+</body>
+</html>

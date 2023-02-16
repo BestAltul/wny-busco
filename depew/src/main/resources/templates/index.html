@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+<style>table th, table td{padding:5px;}</style>
+</head>
+
+
+<body>
+<h1> Buses</h1>
+
+<table border="1">
+	<tr>
+		<th>Number</th>
+		<th>Fleet</th>
+		<th>CP4</th>
+		<th>CP2</th>
+		<th>Sim card</th>
+	</tr>
+		
+	<tr th:each="bigBus:${bigBuses}">
+		<td> 
+			<a th:href="@{/buses/{id}(id=${bigBus.getId()})}"
+			  th:utext="${bigBus.getNumber()}"></a>
+			
+		</d>
+		<td th:utext="${bigBus.getOwner().getName()}">
+		<td th:utext="${bigBus.getCp4()}?(${bigBus.getCp4().getDrid()}?:'NA')">
+		<td th:utext="${bigBus.getCp2()}?(${bigBus.getCp2().getDrid()}?:'NA')">
+		<td th:utext="${bigBus.getCp4()} ? (${bigBus.getCp4().getSimCard()} ? (${bigBus.getCp4().getSimCard().getCardNumber()}):'NA'):'na'">
+	</tr>
+				
+</table>
+
+</br>
+</hr>
+
+<a href="/buses/new">Create new bus</a>
+</br>
+</hr>
+<a href="/buses/upload">Upload buses</a>
+</body>
+</html>
