@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wnybusco.depew.model.BigBus;
 import com.wnybusco.depew.model.CP4;
+import com.wnybusco.depew.model.DotStatus;
+import com.wnybusco.depew.model.DotValue;
 import com.wnybusco.depew.model.Fleet;
 import com.wnybusco.depew.services.BusService;
 import com.wnybusco.depew.services.DashCamServiceCP4;
+import com.wnybusco.depew.services.DotService;
 import com.wnybusco.depew.services.FleetService;
 
 import jakarta.validation.Valid;
@@ -31,23 +35,39 @@ public class BusesController {
 	
 	private final FleetService fleetService;
 	
+	private final DotService dotService;
+	
 	private DashCamServiceCP4 dashCamServiceCP4;
 	
+		
 	@Autowired
-	public BusesController(BusService busService, FleetService fleetService, DashCamServiceCP4 dashCamServiceCP4) {
+	public BusesController(BusService busService, FleetService fleetService, DashCamServiceCP4 dashCamServiceCP4, DotService dotService) {
 		this.busService = busService;
 		this.fleetService=fleetService;
 		this.dashCamServiceCP4=dashCamServiceCP4;
+		this.dotService = dotService;		
 	}
 	
+   
+	
 	@GetMapping("/index")
+//	@GetMapping("/fleet")
 	public String index(Model model) {
+		
+	//	model.addAttribute("bigBuses",busService.findAll());
+
+//		return "index";
+		return "index";
+	}
+	
+	@GetMapping("/fleet")	
+	public String fleet(Model model) {
 		
 		model.addAttribute("bigBuses",busService.findAll());
 
-		return "index";
-	
+		return "fleet";
 	}
+	
 	
 	@GetMapping("/general")
 	public String general(Model model) {
@@ -62,6 +82,9 @@ public class BusesController {
 		
 		model.addAttribute("bigBus",busService.findOne(id));
 		
+		model.addAttribute("lastDot",dotService.getLastDotDate());
+		
+		
 		return "show";
 	}
 	
@@ -73,6 +96,13 @@ public class BusesController {
 		
 		return "new";
 	}
+	
+	@GetMapping("/addDot")
+	public String addDot(Model model,@ModelAttribute("dotValue") DotValue dotValue) {
+		
+		return "addDot";
+	}
+	
 	
 	@GetMapping("/upload")
 	public String uploadBuses() {
@@ -87,6 +117,7 @@ public class BusesController {
 		model.addAttribute("bigBus",busService.findOne(id));
 		model.addAttribute("fleet",fleetService.findAll());
 		
+	
 		return "edit";
 	}
 	
@@ -117,11 +148,22 @@ public class BusesController {
 	public String Upload() {
 		
 	//	private String fileName; 
-		System.out.println("wwwww");
 		
 		busService.upload("C:/Users/User/Documents/WNY project/Devices.xls");
 			
 		return "redirect:/buses/index";
 		
 	}
+	
+	@PostMapping("/addDot")
+	public String addDot(@ModelAttribute("dotValue") DotValue dotValue, @RequestParam("dotStatus") DotStatus dotStatus) {
+		
+					
+		dotService.addNewDotRecord(dotValue,dotStatus);
+			
+		return "redirect:/buses/addDot";
+		
+	}
+	
+
 }

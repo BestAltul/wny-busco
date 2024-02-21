@@ -50,6 +50,9 @@ public class BusService {
 		return  busesRepository.findAll();
 	}
 	
+	public List<BigBus> findAllDTO(){
+		return  busesRepository.findAll();
+	}
 	
 	public BigBus findOne(int id) {
 

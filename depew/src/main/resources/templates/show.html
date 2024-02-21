@@ -1,19 +1,135 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>BigBus</title>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <style>
+      .flex-container {
+        display: flex;
+        background-color: #cccccc;
+        flex-direction: column;
+        margin-right: 50px;
+        margin-top: 20px;
+      }
+      .flex-container > div {
+        background-color: #ffffff;
+        margin: 10px;
+        padding: 20px;
+        font-size: 20px;
+        margin-right: 50px;
+      }
 
-	<p th:text="${bigBus.getNumber()}">user</p>
-	<p th:text="${bigBus.getId()}">id</p>
-	
-	<a th:href="@{/buses/{id}/edit(id=${bigBus.getId()})}">Edit</a>
-	<form th:method="DELETE" th:action="@{/buses/{id}(id=${bigBus.getId()})}">
-	
-	<input type="submit" value="Delete"/>
-	
-	</form>
-</body>
+      .sidebar {
+        float: right;
+        height: auto;
+        width: auto;
+        padding: 5px;
+        border: 1px solid black;
+        margin-top: 20px;
+      }
+
+      .navLeft {
+        display: inline-block;
+        float: left;
+        font-size: 30px;
+        padding-top: 3px;
+      }
+      .navRight {
+        display: inline-block;
+        float: right;
+        padding-top: 3px;
+        font-style: italic;
+        text-shadow: 4px 4px 2px #c0c0c0;
+      }
+    </style>
+   
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/img/WNYBUSCO.png" alt="WNYBUSCO" width="150" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fleet">Our fleet</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  
+      <div class="container">
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="flex-container">
+            <div>
+              <h1 class="navLeft">Bus number:</h1>
+              <p class = "navRight" th:text="${bigBus.getNumber()}">bus</p>
+            </div>
+            <div>
+            	<h1 class="navLeft">Last DOT:</h1>
+               	<a href="https://example.com">
+               	  	<p class = "navRight" th:text="${lastDot}"></p>
+               	</a>
+    	        
+            	
+            	
+            </div>
+            <div>Next DOT:</div>
+            <div>
+                <h1 class="navLeft">Camera:</h1>
+              	<p class = "navRight" th:text="${bigBus.getCp4().getName()}">Dash camera</p>
+            </div>
+            
+            <div>Radio:
+            </div>
+            <div>SIM card:</div>
+            <div>Date in:</div>
+            <div>Date out:</div>
+            <div>Fleet:</div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="sidebar">
+            <img src="/img/bus.jpg" alt="best schoolbus co" />
+          </div>
+          	<a th:href="@{/buses/{id}/edit(id=${bigBus.getId()})}">Edit</a>
+        </div>        
+      </div>
+    </div>
+<!--      <label for="bus">Bus number:</label>
+          <p th:text="${bigBus.getNumber()}">bus</p>
+          <p th:text="${bigBus.getId()}">id</p>
+          <a th:href="@{/buses/{id}/edit(id=${bigBus.getId()})}">Edit</a>
+          <form
+            th:method="DELETE"
+            th:action="@{/buses/{id}(id=${bigBus.getId()})}"
+          >
+            <input type="submit" value="Delete" /> -->
+    
+  </body>
 </html>
