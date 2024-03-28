@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 
 
 @Controller
-@RequestMapping("/buses")
+@RequestMapping("/")
 public class BusesController {	
 	
 	private final BusService busService; 
@@ -124,7 +124,7 @@ public class BusesController {
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable("id") int id) {
 		busService.delete(id);
-		return "redirect:/buses/index";
+		return "redirect:/index";
 	}
 	
 	@PatchMapping("/{id}")
@@ -132,7 +132,7 @@ public class BusesController {
 		
 		busService.update(id, bigBus,fleet,dashCam);
 		
-		return "redirect:/buses/index";
+		return "redirect:/index";
 	}
 	
 	@PostMapping
@@ -140,7 +140,7 @@ public class BusesController {
 
 		busService.save(bigBus,fleet,dashCam);
 		
-		return "redirect:/buses/index";
+		return "redirect:/index";
 		
 	}
 	
@@ -151,7 +151,7 @@ public class BusesController {
 		
 		busService.upload("C:/Users/User/Documents/WNY project/Devices.xls");
 			
-		return "redirect:/buses/index";
+		return "redirect:/index";
 		
 	}
 	
@@ -161,7 +161,7 @@ public class BusesController {
 					
 		dotService.addNewDotRecord(dotValue,dotStatus);
 			
-		return "redirect:/buses/addDot";
+		return "redirect:/addDot";
 		
 	}
 	
